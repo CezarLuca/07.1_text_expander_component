@@ -1,4 +1,5 @@
 import "./styles.css";
+import { useState } from "react";
 
 export default function App() {
     return (
@@ -36,6 +37,47 @@ export default function App() {
     );
 }
 
-function TextExpander() {
-    return <div>TODO</div>;
+function TextExpander({
+    children,
+    buttonColor = "",
+    className = "",
+    collapsedNumWords = 10,
+    expanded = false,
+    expandButtonText = "Show more",
+    collapseButtonText = "Show less",
+}) {
+    // In the TextExpander function, { children, ...props } is using destructuring assignment
+    //  to get the children prop and also gather the rest of the props into an object called props.
+    //  This props object can then be used within the TextExpander component or passed to other components.
+
+    const [isExpanded, setIsExpanded] = useState(expanded);
+    const providedText = children.split(" ");
+    const buttonText = isExpanded ? collapseButtonText : expandButtonText;
+    // const displayedText = isExpanded
+    //     ? providedText
+    //     : providedText.slice(0, collapsedNumWords);
+
+    const handleDisplayText = () => {
+        if (isExpanded) {
+            return providedText.join(" ");
+        } else {
+            return providedText.slice(0, collapsedNumWords).join(" ");
+        }
+    };
+    const handleButtonClick = () => {
+        setIsExpanded(!isExpanded);
+    };
+    return (
+        <div>
+            <p className={className}>
+                {handleDisplayText()}
+                <button
+                    style={{ color: buttonColor }}
+                    onClick={handleButtonClick}
+                >
+                    {buttonText}
+                </button>
+            </p>
+        </div>
+    );
 }
