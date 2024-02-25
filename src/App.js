@@ -71,7 +71,7 @@ function TextExpander({
     return (
         <div>
             <p className={className}>
-                {handleDisplayText()}
+                <span>{handleDisplayText()}</span>
                 <button
                     style={{ color: buttonColor }}
                     onClick={handleButtonClick}
