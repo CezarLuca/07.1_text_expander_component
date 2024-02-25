@@ -58,7 +58,8 @@ function TextExpander({
     //     : providedText.slice(0, collapsedNumWords);
 
     const handleDisplayText = () => {
-        if (isExpanded) {
+        const isExpandedBool = Boolean(isExpanded);
+        if (isExpandedBool) {
             return providedText.join(" ");
         } else {
             return providedText.slice(0, collapsedNumWords).join(" ");
