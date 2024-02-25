@@ -56,15 +56,32 @@ function TextExpander({
     // const displayedText = isExpanded
     //     ? providedText
     //     : providedText.slice(0, collapsedNumWords);
+    const buttonStyle = {
+        color: buttonColor,
+        background: "none",
+        border: "none",
+        cursor: "pointer",
+        font: "inherit",
+        marginLeft: "5px",
+    };
 
     const handleDisplayText = () => {
         const isExpandedBool = Boolean(isExpanded);
         if (isExpandedBool) {
             return providedText.join(" ");
         } else {
-            return providedText.slice(0, collapsedNumWords).join(" ");
+            return `${providedText.slice(0, collapsedNumWords).join(" ")}...`;
         }
     };
+    /*If the children prop contains fewer than 10 words,
+        the slice(0, collapsedNumWords) operation will simply return all the words.
+        The slice method in JavaScript doesn't throw an error or exception
+        if the end index is greater than the length of the array.
+        Instead, it just returns the elements up to the end of the array.
+
+        So, if children has less than 10 words,
+        the handleDisplayText function will return all the words when isExpanded is false,
+        and it will still return all the words when isExpanded is true.*/
     const handleButtonClick = () => {
         setIsExpanded(!isExpanded);
     };
@@ -72,10 +89,7 @@ function TextExpander({
         <div>
             <p className={className}>
                 <span>{handleDisplayText()}</span>
-                <button
-                    style={{ color: buttonColor }}
-                    onClick={handleButtonClick}
-                >
+                <button style={buttonStyle} onClick={handleButtonClick}>
                     {buttonText}
                 </button>
             </p>
